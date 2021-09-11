@@ -1,6 +1,9 @@
 package org.example.reservation.domain;
 
 import java.util.Date;
+/**
+ * DTO для UserDTO
+ */
 
 public class UserDTO {
     private String infoEvent;
