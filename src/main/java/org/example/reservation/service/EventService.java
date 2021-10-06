@@ -48,4 +48,28 @@ public class EventService implements EventServiceInterface {
         Event event = eventConverter.dtoToEntity(eventDTO);
         return eventConverter.entityToDto(eventRepository.saveAndFlush(event));
     }
+
+    /**
+     * Метод для изменения бронирования комнаты
+     *
+     * @param id        это параметр, задающий id бронирования, которое необходимо изменить
+     * @param eventDTO это параметр с данными, которые необходимо внести для изменения бронирования
+     *                  комнаты
+     * @return изменённое бронирование комнаты
+     */
+    public EventDTO edit(Long id, EventDTO eventDTO){
+        Event eventEdit = eventRepository.findById(id).get();
+        eventConverter.dtoToEntityEdit(eventDTO, eventEdit);
+        return eventConverter.entityToDto(eventRepository.saveAndFlush(eventEdit));
+
+    }
+    /**
+     * Метод удаления бронирования комнаты
+     *
+     * @param id это параметр, задающий id бронирования комнаты, которое необходимо удалить
+     */
+    public void delete(Long id) {
+      eventRepository.delete(eventRepository.findById(id).get());
+    }
+
 }
