@@ -4,10 +4,7 @@ import org.example.reservation.constants.EventMapConstant;
 import org.example.reservation.dto.EventDTO;
 import org.example.reservation.servicesinterface.EventServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,5 +40,28 @@ public class EventController {
     @PostMapping(value = EventMapConstant.EVENT_NEW)
     public EventDTO newOffice(@RequestBody EventDTO eventDTO) {
         return eventService.newEvent(eventDTO);
+    }
+
+    /**
+     * Метод для изменения бронирования комнаты
+     *
+     * @param id        это параметр, задающий id бронирования, которое необходимо изменить
+     * @param eventDTO это параметр с данными, которые необходимо внести для изменения бронирования
+     *                  комнаты
+     * @return изменённое бронирование комнаты
+     */
+    @PutMapping(value = EventMapConstant.EVENT_EDIT)
+    public EventDTO edit(@PathVariable(name = "id") Long id, @RequestBody EventDTO eventDTO){
+        return eventService.edit(id,eventDTO);
+    }
+
+    /**
+     * Метод удаления бронирования комнаты
+     *
+     * @param id это параметр, задающий id бронирования комнаты, которое необходимо удалить
+     */
+    @DeleteMapping(value = EventMapConstant.EVENT_DELETE)
+    public void delete(@PathVariable(name = "id") Long id){
+        eventService.delete(id);
     }
 }
